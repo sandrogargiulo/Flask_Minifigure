@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="container mt-5">
+        <h1 class="stylish-header">Inserisci Nuova Minifigura da BrickLink</h1>
+    </div>
+    <form method="post" action="" class="mt-4">
+        <div class="form-group">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Numero Minifigura" aria-label="Numero Minifigura"
+                       aria-describedby="basic-addon2" name="no" required>
+                <span class="input-group-text" id="no" style="background-color: #f5b041;">Numero Minifigura</span>
+            </div>
+            <!-- <label for="no">Numero Minifigura:</label>
+            <input type="text" class="form-control" id="no" name="no" required> -->
+        </div>
+        <div class="form-group">
+            <div class="input-group mb-3">
+                <input type="number" class="form-control" placeholder="Posizione" aria-label="Posizione"
+                       aria-describedby="basic-addon2" name="posizione" required>
+                <span class="input-group-text" id="posizione" style="background-color: #f5b041;">Posizione</span>
+            </div>
+            <!-- <label for="posizione">Posizione:</label>
+            <input type="number" class="form-control" id="posizione" name="posizione"> -->
+        </div>
+        <div class="form-group">
+            <div class="input-group mb-3">
+                <input type="number" class="form-control" placeholder="Numero Cornice" aria-label="Numero Cornice"
+                       aria-describedby="basic-addon2" name="quadro" required>
+                <span class="input-group-text" id="quadro" style="background-color: #f5b041;">Numero Cornice</span>
+            </div>
+            <!-- <label for="quadro">Cornice nr: </label>
+            <input type="number" class="form-control" id="quadro" name="quadro"> -->
+        </div>
+        <div class="text-center">
+            <button type="submit" name="insert" class="btn btn-primary" style="background-color: #c0392b;">Inserisci
+                Minifigura
+            </button>
+        </div>
+    </form>
+
+</div>
+
+
+{% endblock %}

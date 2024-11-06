@@ -3,9 +3,12 @@
 
 {% block content %}
 
-<div class="container">
-    <h1>Benvenuti in MYLEGO</h1>
-    <p>Questo è il nostro sito per la gestione delle Minifigure LEGO.</p>
+<div class="container-fluid">
+
+    <div class="d-flex justify-content-center mt-5">
+        <img src="{{ url_for('static', filename='images/index.webp') }}" class="img-fluid" alt="index.webp">
+    </div>
+
 </div>
 
 {% endblock %}
