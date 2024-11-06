@@ -1,2 +1,16 @@
+# Ignora il file .env
 .env
+
+# Ignora la cartella dell'ambiente virtuale
+.venv/
+
+# Ignora i file di configurazione di PyCharm
+.idea/
+
+# Ignora i file di log
+*.log
+
+# Ignora i file compilati di Python
+__pycache__/
+*.pyc
 

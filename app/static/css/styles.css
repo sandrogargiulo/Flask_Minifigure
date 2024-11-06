@@ -1,0 +1,15 @@
+.my-4 {
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+}
+
+.stylish-header {
+    font-size: 36px;
+    color: #27ae60;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Ombreggiatura */
+    letter-spacing: 1px; /* Spaziatura tra le lettere */
+    font-weight: bold;
+    margin: 0;
+    transition: transform 0.3s ease; /* Effetto di transizione */
+    text-align: center;
+}
