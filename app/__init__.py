@@ -1,13 +1,10 @@
 from flask import Flask
-from .db.database import create_connection
+from app.db.database import get_db_connection
 import os
 from dotenv import load_dotenv
 
 # Carica le variabili di ambiente
 load_dotenv()
-
-
-
 
 def create_app():
     app = Flask(__name__)
@@ -22,14 +19,17 @@ def create_app():
     app.config['PASSWORD'] = os.getenv('PASSWORD')
     app.config['DATABASE'] = os.getenv('DATABASE')
 
+    #IMPOSTAZIONE DELLA SECRET KEY
+    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+
     # Registrazione dei blueprint
-    from .routes import main
+    from app.routes import main
     app.register_blueprint(main)
 
 
     # Test della connessione (opzionale, puoi rimuoverlo in produzione)
     with app.app_context():
-        connection = create_connection()
+        connection = get_db_connection()
         if connection:
             print("Connessione stabilita.")
             connection.close()
