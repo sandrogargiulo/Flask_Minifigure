@@ -19,6 +19,7 @@ def get_minifigure_description(minifig_id):
         response = requests.get(url, auth=auth)
         if response.status_code == 200:
             data = response.json()
+            print("Risposta JSON:", data)
             # Verifica se 'data' esiste ed è un dizionario con dati
             if 'data' in data and data['data']:
                 return data['data']
