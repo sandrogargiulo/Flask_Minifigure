@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-navy text-white text-center" style="background-color: navy;">
+                    <h3>Cerca Minifigura per Posizione</h3>
+                </div>
+                <div class="card-body">
+                    <form action="{{ url_for('main.cerca') }}" method="get">
+                         <input type="hidden" name="tipo" value="0"> <!-- parametro nascosto -->
+                        <div class="form-group">
+                            <label for="posizione">Posizione:</label>
+                            <input type="text" id="posizione" name="posizione" class="form-control mb-2"
+                                   placeholder="Inserisci la posizione della minifigura" required>
+                        </div>
+                        <button type="submit" class="btn btn-success btn-block">Cerca Minifigura</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-navy text-white text-center" style="background-color: navy;">
+                    <h3>Cerca Minifigura per numero set bricklink</h3>
+                </div>
+                <div class="card-body">
+                    <form action="{{ url_for('main.cerca') }}" method="get">
+                         <input type="hidden" name="tipo" value="1"> <!-- parametro nascosto -->
+                        <div class="form-group">
+                            <label for="no">Numero:</label>
+                            <input type="text" id="no" name="no" class="form-control mb-2"
+                                   placeholder="Inserisci il numero minifigura" required>
+                        </div>
+                        <button type="submit" class="btn btn-success btn-block">Cerca Minifigura</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-navy text-white text-center" style="background-color: navy;">
+                    <h3>Cerca le Minifigure del quadro</h3>
+                </div>
+                <div class="card-body">
+                    <form action="{{ url_for('main.cerca') }}" method="get">
+                         <input type="hidden" name="tipo" value="2"> <!-- parametro nascosto -->
+                        <div class="form-group">
+                            <label for="quadro">Numero quadro:</label>
+                            <input type="text" id="quadro" name="quadro" class="form-control mb-2"
+                                   placeholder="Inserisci il numero della cornice" required>
+                        </div>
+                        <button type="submit" class="btn btn-success btn-block">Cerca Minifigure</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if numero_minifigura and posizione and quadro %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <img src="" alt="Minifigura Image" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">Minifigura: {{ numero_minifigura }}</h5>
+                        <p class="card-text">Posizione: {{ posizione }}</p>
+                        <p class="card-text">Codice BrickLink: {{ quadro }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <img src="" alt="Minifigura Image" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">Minifigura: {{ numero_minifigura }}</h5>
+                        <p class="card-text">Posizione: {{ posizione }}</p>
+                        <p class="card-text">Codice BrickLink: {{ quadro }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <img src="" alt="Minifigura Image" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">Minifigura: {{ numero_minifigura }}</h5>
+                        <p class="card-text">Posizione: {{ posizione }}</p>
+                        <p class="card-text">Codice BrickLink: {{ quadro }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <button type="button" class="btn btn-primary">Pulsante al Centro</button>
+        </div>
+    </div>
+{% endif %}
+
+{% endblock %}
