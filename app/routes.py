@@ -167,7 +167,10 @@ def cerca():
                 # Se non viene trovata alcuna posizione, mostra un messaggio di errore
                 return render_template('search_minifigure.html', esito=None, messaggio="Posizione non trovata.")
 
-        # Puoi aggiungere altre condizioni per diversi tipi di ricerca (es. per numero, quadro, ecc.)
+
+
+
+
 
     # Per richieste GET o se non viene gestita la POST
     return render_template('search_minifigure.html')
