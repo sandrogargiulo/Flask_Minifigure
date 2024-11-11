@@ -1,7 +1,6 @@
 import os
-from traceback import print_tb
 
-import requests  # type: ignore
+import requests
 from requests_oauthlib import OAuth1
 from dotenv import load_dotenv
 
@@ -12,14 +11,12 @@ auth = OAuth1(os.getenv('BRICKLINK_CONSUMER_KEY'),os.getenv('BRICKLINK_CONSUMER_
               os.getenv('BRICKLINK_TOKEN'),os.getenv('BRICKLINK_TOKEN_SECRET'))
 
 #PRELEVA I DATI DELLA MINIFIGURA
-# Preleva i dati della minifigura
 def get_minifigure_description(minifig_id):
     url = f'https://api.bricklink.com/api/store/v1/items/MINIFIG/{minifig_id}'
     try:
         response = requests.get(url, auth=auth)
         if response.status_code == 200:
             data = response.json()
-            print("Risposta JSON:", data)
             # Verifica se 'data' esiste ed è un dizionario con dati
             if 'data' in data and data['data']:
                 return data['data']
@@ -32,3 +29,17 @@ def get_minifigure_description(minifig_id):
     except requests.exceptions.RequestException as e:
         print(f"Errore di connessione: {e}")
         return None
+
+#PRELEVA IL VALORE MEDIO DELLA MINIFIGURA
+def get_bricklink_value(numero_minifigura):
+    # Chiamata API per ottenere il valore medio
+    url = f"https://api.bricklink.com/api/store/v1/items/MINIFIG/{numero_minifigura}/price"
+    response = requests.get(url, auth=auth)
+
+    if response.status_code == 200:
+        data = response.json()
+        if 'data' in data and data['data']:
+            valore_medio = data['data']['qty_avg_price']
+            return valore_medio
+    else:
+        return "N/A"  # O qualsiasi messaggio in caso di errore

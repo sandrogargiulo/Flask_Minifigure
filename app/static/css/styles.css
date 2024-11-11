@@ -14,3 +14,35 @@
     text-align: center;
 }
 
+.stylish-card {
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid #27ae60; /* Bordo verde */
+}
+
+.stylish-card:hover {
+    transform: scale(1.05); /* Ingrandimento al passaggio del mouse */
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); /* Ombra più intensa */
+}
+
+.stylish-image {
+    display: block;
+    margin: auto;
+    max-width: 30%; /* Riduzione della dimensione dell'immagine */
+    height: auto;
+    padding-top: 20px;
+}
+
+.stylish-title {
+    font-size: 1.25rem;
+    color: #2c3e50; /* Colore del testo */
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.stylish-text {
+    color: #34495e; /* Testo di colore grigio-blu */
+    font-size: 0.9rem;
+}
+

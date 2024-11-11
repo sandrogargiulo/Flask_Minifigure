@@ -2,7 +2,7 @@
 from flask import render_template, Blueprint, request, flash, redirect, session
 import datetime
 from app.utils import check_position_exists
-from app.api import get_minifigure_description
+from app.api import get_minifigure_description, get_bricklink_value
 from app.models import Posizione, Minifigure
 from datetime import datetime
 
@@ -138,31 +138,37 @@ def insert_db():
 
 @main.route('/cerca', methods=['GET', 'POST'])
 def cerca():
-    if request.method == 'POST':
+    if request.method == 'POST':  # Cambiato a 'POST' perché stai recuperando i dati del form
         # Recupera i dati del form
         tipo = request.form.get('tipo')
         numero_minifigura = request.form.get('no')
         posizione = request.form.get('posizione')
         quadro = request.form.get('quadro')
 
+        # Controlla il tipo di ricerca
+        if tipo == '0':  # '0' come stringa, verifica il valore esatto passato dal form
+            # Ricerca per posizione nella tabella 'Posizione'
+            posizione_record = Posizione.query.filter_by(posizione=posizione).first()
 
-        if tipo == 0:
-           print("tipo 0")
-        if tipo == 1:
-            print("tipo 1")
-        if tipo == 2:
-            print("tipo 2")
+            if posizione_record:  # Controlla se esiste un risultato
+                numero_minifigura = posizione_record.no  # Recupera il numero minifigura
+                quadro = posizione_record.quadro  # Recupera il quadro
+                # Ora cerca nella tabella Minifigure usando 'numero_minifigura'
+                minifigura = Minifigure.query.filter_by(no=numero_minifigura).first()
+                nome_troncato = minifigura.name.split('&')[0] if minifigura and minifigura.name else ""
 
+                # Ottieni il valore medio tramite la funzione API
+                valore_medio = get_bricklink_value(numero_minifigura)
 
+                # Mostra il risultato
+                return render_template('search_minifigure.html', esito=minifigura, nome_troncato=nome_troncato,
+                                       posizione=posizione, quadro=quadro, valore_medio=valore_medio)
+            else:
+                # Se non viene trovata alcuna posizione, mostra un messaggio di errore
+                return render_template('search_minifigure.html', esito=None, messaggio="Posizione non trovata.")
 
+        # Puoi aggiungere altre condizioni per diversi tipi di ricerca (es. per numero, quadro, ecc.)
 
-        # Passa i dati al template
-        return render_template('search_minifigure.html',
-                               numero_minifigura=numero_minifigura,
-                               posizione=posizione,
-                               quadro=quadro)
+    # Per richieste GET o se non viene gestita la POST
     return render_template('search_minifigure.html')
-
-
-
 
