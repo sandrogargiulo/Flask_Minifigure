@@ -135,43 +135,51 @@ def insert_db():
     flash("Inserimento avvenuto con successo.", "success")
     return redirect('/insert_bl')  # Redirect dopo successo
 
-
 @main.route('/cerca', methods=['GET', 'POST'])
 def cerca():
-    if request.method == 'POST':  # Cambiato a 'POST' perché stai recuperando i dati del form
-        # Recupera i dati del form
+    if request.method == 'POST':
         tipo = request.form.get('tipo')
         numero_minifigura = request.form.get('no')
         posizione = request.form.get('posizione')
         quadro = request.form.get('quadro')
 
-        # Controlla il tipo di ricerca
-        if tipo == '0':  # '0' come stringa, verifica il valore esatto passato dal form
-            # Ricerca per posizione nella tabella 'Posizione'
-            posizione_record = Posizione.query.filter_by(posizione=posizione).first()
-
-            if posizione_record:  # Controlla se esiste un risultato
-                numero_minifigura = posizione_record.no  # Recupera il numero minifigura
-                quadro = posizione_record.quadro  # Recupera il quadro
-                # Ora cerca nella tabella Minifigure usando 'numero_minifigura'
-                minifigura = Minifigure.query.filter_by(no=numero_minifigura).first()
-                nome_troncato = minifigura.name.split('&')[0] if minifigura and minifigura.name else ""
-
-                # Ottieni il valore medio tramite la funzione API
-                valore_medio = get_bricklink_value(numero_minifigura)
-
-                # Mostra il risultato
-                return render_template('search_minifigure.html', esito=minifigura, nome_troncato=nome_troncato,
-                                       posizione=posizione, quadro=quadro, valore_medio=valore_medio)
-            else:
-                # Se non viene trovata alcuna posizione, mostra un messaggio di errore
+        try:
+            if tipo == '0':  # Ricerca per posizione
+                posizione_record = Posizione.query.filter_by(posizione=posizione).first()
+                if posizione_record:
+                    numero_minifigura = posizione_record.no
+                    quadro = posizione_record.quadro
+                    minifigura = Minifigure.query.filter_by(no=numero_minifigura).first()
+                    nome_troncato = (minifigura.name.split('&')[0] if isinstance(minifigura.name, str) else "") if minifigura else ""
+                    valore_medio = get_bricklink_value(numero_minifigura)
+                    return render_template('search_minifigure.html', esito=minifigura, nome_troncato=nome_troncato,
+                                           posizione=posizione, quadro=quadro, valore_medio=valore_medio)
                 return render_template('search_minifigure.html', esito=None, messaggio="Posizione non trovata.")
 
+            elif tipo == '1':  # Ricerca per numero minifigura
+                posizione_record = Posizione.query.filter_by(no=numero_minifigura).first()
+                if posizione_record:
+                    quadro = posizione_record.quadro
+                    posizione = posizione_record.posizione
+                    minifigura = Minifigure.query.filter_by(no=numero_minifigura).first()
+                    nome_troncato = (minifigura.name.split('&')[0] if isinstance(minifigura.name, str) else "") if minifigura else ""
+                    valore_medio = get_bricklink_value(numero_minifigura)
+                    return render_template('search_minifigure.html', esito=minifigura, nome_troncato=nome_troncato,
+                                           posizione=posizione, quadro=quadro, valore_medio=valore_medio)
+                return render_template('search_minifigure.html', esito=None, messaggio="Minifigura non trovata.")
+
+            elif tipo == '2':  # Ricerca per quadro
+                posizioni = Posizione.query.filter_by(quadro=quadro).all()
+                minifigure = Minifigure.query.filter(Minifigure.no.in_([pos.no for pos in posizioni])).all()
+                if not posizioni or not minifigure:
+                    return render_template('search_minifigure.html', esito=None, messaggio="Nessun risultato trovato.")
+                return render_template('search_minifigure.html', posizioni=posizioni, minifigure=minifigure)
+
+        except Exception as e:
+            return render_template('search_minifigure.html', esito=None, messaggio=f"Errore: {str(e)}")
+
+    # Richiesta GET
+    return render_template('search_minifigure.html', messaggio="Inserisci i parametri di ricerca.")
 
 
-
-
-
-    # Per richieste GET o se non viene gestita la POST
-    return render_template('search_minifigure.html')
 

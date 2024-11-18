@@ -9,3 +9,4 @@ def check_position_exists(position, minifig_no):
     ).count()
 
     return result > 0
+
