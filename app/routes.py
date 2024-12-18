@@ -144,9 +144,6 @@ def cerca():
         posizione = request.form.get('posizione')
         quadro = request.form.get('quadro')
 
-        print(f"Tipo di ricerca: {tipo}")  # Debug: stampa tipo
-        print(f"Valore di quadro: {quadro}")  # Debug: stampa quadro
-
         try:
             if tipo == '0':  # Ricerca per posizione
                 posizione_record = Posizione.query.filter_by(posizione=posizione).first()
@@ -157,10 +154,10 @@ def cerca():
                     nome_troncato = (minifigura.name.split('&')[0] if isinstance(minifigura.name, str) else "") if minifigura else ""
                     valore_medio = get_bricklink_value(numero_minifigura)
                     caso = None  # caso rimane None in questo caso
-                    return render_template('search_minifigure.html', esito=minifigura, nome_troncato=nome_troncato,
+                    return render_template('view.html', esito=minifigura, nome_troncato=nome_troncato,
                                            posizione=posizione, quadro=quadro, valore_medio=valore_medio, caso=caso)
                 caso = None  # caso in None quando posizione non trovata
-                return render_template('search_minifigure.html', esito=None, messaggio="Posizione non trovata.", caso=caso)
+                return render_template('view.html', esito=None, messaggio="Posizione non trovata.", caso=caso)
 
             elif tipo == '1':  # Ricerca per numero minifigura
                 posizione_record = Posizione.query.filter_by(no=numero_minifigura).first()
@@ -171,10 +168,10 @@ def cerca():
                     nome_troncato = (minifigura.name.split('&')[0] if isinstance(minifigura.name, str) else "") if minifigura else ""
                     valore_medio = get_bricklink_value(numero_minifigura)
                     caso = None  # caso rimane None in questo caso
-                    return render_template('search_minifigure.html', esito=minifigura, nome_troncato=nome_troncato,
+                    return render_template('view.html', esito=minifigura, nome_troncato=nome_troncato,
                                            posizione=posizione, quadro=quadro, valore_medio=valore_medio, caso=caso)
                 caso = None  # caso in None quando minifigura non trovata
-                return render_template('search_minifigure.html', esito=None, messaggio="Minifigura non trovata.", caso=caso)
+                return render_template('view.html', esito=None, messaggio="Minifigura non trovata.", caso=caso)
 
             elif tipo == '2':  # Ricerca per quadro
                 posizioni = Posizione.query.filter_by(quadro=quadro).all()
@@ -184,26 +181,26 @@ def cerca():
 
                 # Controllo se posizioni e minifigure hanno lo stesso numero di elementi
                 if len(posizioni) != len(minifigure):
-                    return render_template('search_minifigure.html', esito=None,
+                    return render_template('view.html', esito=None,
                                            messaggio="Mismatch nel numero di posizioni e minifigure.")
 
                 # Crea una lista di tuple (posizione, minifigure)
                 posizioni_minifigure = list(zip(posizioni, minifigure))
 
                 if not posizioni_minifigure:
-                    return render_template('search_minifigure.html', esito=None,
+                    return render_template('view.html', esito=None,
                                                messaggio="Nessun risultato trovato.")
 
-                return render_template('search_minifigure.html', posizioni_minifigure=posizioni_minifigure, caso=5)
+                return render_template('view.html', posizioni_minifigure=posizioni_minifigure, caso=5)
 
         except Exception as e:
             print(f"Errore: {e}")  # Debug: stampa errore
             caso = None  # caso in None se c'è un errore
-            return render_template('search_minifigure.html', esito=None, messaggio=f"Errore: {str(e)}", caso=caso)
+            return render_template('view.html', esito=None, messaggio=f"Errore: {str(e)}", caso=caso)
 
     # Richiesta GET
     caso = None  # caso in None per la richiesta GET
-    return render_template('search_minifigure.html', messaggio="Inserisci i parametri di ricerca.", caso=caso)
+    return render_template('view.html', messaggio="Inserisci i parametri di ricerca.", caso=caso)
 
 
 

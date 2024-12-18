@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+    {% block content %}
+
+        {% if caso == 5 %}
+
+            <div class="container mt-5">
+            <h3 class="text-center stylish-title mb-4">Risultati della ricerca</h3>
+            <div class="row">
+                {% for posizione, minifigura in posizioni_minifigure %}
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card stylish-card shadow-lg border-0">
+                            <div class="card-header p-0">
+                                <img src="{{ minifigura.image_url }}" alt="Immagine Minifigura" class="card-img-top stylish-image-small">
+                            </div>
+                            <div class="card-body text-center">
+                                <h5 class="card-title stylish-title">{{ minifigura.nome_troncato }}</h5>
+                                <p class="card-text stylish-text mb-1">Nr. BrickLink: <strong>{{ minifigura.no }}</strong></p>
+                                <p class="card-text stylish-text mb-1">Anno: <strong>{{ minifigura.year_released }}</strong></p>
+                                <p class="card-text stylish-text mb-1">Cornice nr: <strong>{{ posizione.quadro }}</strong></p>
+                                <p class="card-text stylish-text">Posizione: <strong>{{ posizione.posizione }}</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        {% elif esito %}
+            <div class="container mt-5 d-flex justify-content-center">
+                <div class="row mt-4">
+                    <div class="col-md-4">
+                        <div class="card mx-auto mt-4 shadow-sm stylish-card" style="width: 20rem;">
+                            <img src="{{ esito.image_url }}" alt="Immagine Minifigura" class="card-img-top stylish-image">
+                            <div class="card-body text-center">
+                                <h3 class="card-title stylish-title">{{ nome_troncato }}</h3>
+                                <p class="card-text stylish-text">Nr. BrickLink: {{ esito.no }}</p>
+                                <p class="card-text stylish-text">Anno: {{ esito.year_released }}</p>
+                                <p class="card-text stylish-text">Cornice nr: {{ quadro }}</p>
+                                <p class="card-text stylish-text">Posizione: {{ posizione }}</p>
+                                <p class="card-text stylish-text">Valore Medio: {{ valore_medio }} €</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+    {% endblock %}

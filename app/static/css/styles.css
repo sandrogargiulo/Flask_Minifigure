@@ -1,8 +1,10 @@
+/* Margin Utility */
 .my-4 {
     margin-top: 1.5rem !important;
     margin-bottom: 1.5rem !important;
 }
 
+/* Header Stylish */
 .stylish-header {
     font-size: 36px;
     color: #27ae60;
@@ -14,35 +16,100 @@
     text-align: center;
 }
 
+/* Title Stylish */
+.stylish-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+}
+
+/* Card Styling */
 .stylish-card {
     border-radius: 15px;
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 2px solid #27ae60; /* Bordo verde */
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
 .stylish-card:hover {
-    transform: scale(1.05); /* Ingrandimento al passaggio del mouse */
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); /* Ombra più intensa */
+    transform: scale(1.03);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-.stylish-image {
-    display: block;
-    margin: auto;
-    max-width: 30%; /* Riduzione della dimensione dell'immagine */
-    height: auto;
-    padding-top: 20px;
+/* Card Footer */
+.card-footer {
+    border-top: 1px solid #ddd;
 }
 
-.stylish-title {
-    font-size: 1.25rem;
-    color: #2c3e50; /* Colore del testo */
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-}
-
+/* Text Styling */
 .stylish-text {
-    color: #34495e; /* Testo di colore grigio-blu */
     font-size: 0.9rem;
+    color: #555;
 }
+
+/* Button Styling */
+.btn {
+    border-radius: 20px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-outline-secondary {
+    border-color: #6c757d;
+    color: #6c757d;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #6c757d;
+    color: white;
+}
+
+/* Image Styling */
+.stylish-image-small {
+    height: 350px; /* Altezza personalizzata */
+    object-fit: cover; /* Mantiene proporzioni corrette */
+    width: 100%; /* Si adatta alla larghezza del contenitore */
+    border-radius: 15px 15px 0 0;
+}
+
+/* Input Styling */
+.stylish-input {
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.stylish-input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+}
+
+/* Button Custom */
+.stylish-button {
+    background-color: #007bff;
+    color: white;
+    font-size: 1rem;
+    padding: 10px;
+    border-radius: 10px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.stylish-button:hover {
+    background-color: #0056b3;
+}
+
+/* Spacing between cards */
+.g-4 > .col-md-6 {
+    margin-bottom: 20px;
+}
+
+
+
 

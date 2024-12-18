@@ -2,60 +2,69 @@
 
 
 {% block content %}
-<div class="container mt-3">
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header bg-navy text-white text-center" style="background-color: navy;">
-                    <h3>Cerca Minifigura per Posizione</h3>
+<div class="container mt-4">
+    <div class="row g-4 justify-content-center">
+        <!-- Card: Cerca Minifigura per Posizione -->
+        <div class="col-lg-4 col-md-6">
+            <div class="card shadow-lg stylish-card">
+                <div class="card-header bg-primary text-white text-center py-3">
+                    <h4>Cerca per Posizione</h4>
                 </div>
                 <div class="card-body">
                     <form action="{{ url_for('main.cerca') }}" method="post">
-                         <input type="hidden" name="tipo" value="0"> <!-- parametro nascosto -->
-                        <div class="form-group">
-                            <label for="posizione">Posizione:</label>
-                            <input type="text" id="posizione" name="posizione" class="form-control mb-2"
+                        <input type="hidden" name="tipo" value="0">
+                        <div class="form-group mb-3">
+                            <label for="posizione" class="form-label">Posizione:</label>
+                            <input type="text" id="posizione" name="posizione" class="form-control stylish-input"
                                    placeholder="Inserisci la posizione della minifigura" required>
                         </div>
-                        <button type="submit" class="btn btn-success btn-block">Cerca Minifigura</button>
+                        <button type="submit" class="btn btn-primary btn-block stylish-button">
+                            Cerca Minifigura
+                        </button>
                     </form>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header bg-navy text-white text-center" style="background-color: navy;">
-                    <h3>Cerca Minifigura per numero set bricklink</h3>
+        <!-- Card: Cerca Minifigura per Numero Set BrickLink -->
+        <div class="col-lg-4 col-md-6">
+            <div class="card shadow-lg stylish-card">
+                <div class="card-header bg-primary text-white text-center py-3">
+                    <h4>Cerca per Numero Set BrickLink</h4>
                 </div>
                 <div class="card-body">
                     <form action="{{ url_for('main.cerca') }}" method="post">
-                         <input type="hidden" name="tipo" value="1"> <!-- parametro nascosto -->
-                        <div class="form-group">
-                            <label for="no">Numero:</label>
-                            <input type="text" id="no" name="no" class="form-control mb-2"
-                                   placeholder="Inserisci il numero minifigura" required>
+                        <input type="hidden" name="tipo" value="1">
+                        <div class="form-group mb-3">
+                            <label for="no" class="form-label">Numero:</label>
+                            <input type="text" id="no" name="no" class="form-control stylish-input"
+                                   placeholder="Inserisci il numero della minifigura" required>
                         </div>
-                        <button type="submit" class="btn btn-success btn-block">Cerca Minifigura</button>
+                        <button type="submit" class="btn btn-primary btn-block stylish-button">
+                            Cerca Minifigura
+                        </button>
                     </form>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header bg-navy text-white text-center" style="background-color: navy;">
-                    <h3>Cerca le Minifigure del quadro</h3>
+        <!-- Card: Cerca Minifigure del Quadro -->
+        <div class="col-lg-4 col-md-6">
+            <div class="card shadow-lg stylish-card">
+                <div class="card-header bg-primary text-white text-center py-3">
+                    <h4>Cerca per numero cornice</h4>
                 </div>
                 <div class="card-body">
                     <form action="{{ url_for('main.cerca') }}" method="post">
-                         <input type="hidden" name="tipo" value="2"> <!-- parametro nascosto -->
-                        <div class="form-group">
-                            <label for="quadro">Numero quadro:</label>
-                            <input type="text" id="quadro" name="quadro" class="form-control mb-2"
+                        <input type="hidden" name="tipo" value="2">
+                        <div class="form-group mb-3">
+                            <label for="quadro" class="form-label">Numero Quadro:</label>
+                            <input type="text" id="quadro" name="quadro" class="form-control stylish-input"
                                    placeholder="Inserisci il numero della cornice" required>
                         </div>
-                        <button type="submit" class="btn btn-success btn-block">Cerca Minifigure</button>
+                        <button type="submit" class="btn btn-primary btn-block stylish-button">
+                            Cerca Minifigure
+                        </button>
                     </form>
                 </div>
             </div>
@@ -64,49 +73,6 @@
 </div>
 
 
-{% if caso == 5 %}
-
-
-    <div class="container mt-5">
-        <h3 class="text-center stylish-title">Risultati della ricerca</h3>
-        <div class="row mt-4">
-            {% for posizione, minifigura in posizioni_minifigure %}
-                <div class="col-md-4">
-                    <div class="card mx-auto mt-4 shadow-sm stylish-card" style="width: 20rem;">
-                        <img src="{{ minifigura.image_url }}" alt="Immagine Minifigura" class="card-img-top stylish-image">
-                        <div class="card-body text-center">
-                            <h3 class="card-title stylish-title">{{ minifigura.nome_troncato }}</h3>
-                            <p class="card-text stylish-text">Nr. BrickLink: {{ minifigura.no }}</p>
-                            <p class="card-text stylish-text">Anno: {{ minifigura.year_released }}</p>
-                            <p class="card-text stylish-text">Cornice nr: {{ posizione.quadro }}</p>
-                            <p class="card-text stylish-text">Posizione: {{ posizione.posizione }}</p>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
-
-
-{% elif esito %}
-    <div class="container mt-5 d-flex justify-content-center">
-        <div class="row mt-4">
-            <div class="col-md-4">
-                <div class="card mx-auto mt-4 shadow-sm stylish-card" style="width: 20rem;">
-                    <img src="{{ esito.image_url }}" alt="Immagine Minifigura" class="card-img-top stylish-image">
-                    <div class="card-body text-center">
-                        <h3 class="card-title stylish-title">{{ nome_troncato }}</h3>
-                        <p class="card-text stylish-text">Nr. BrickLink: {{ esito.no }}</p>
-                        <p class="card-text stylish-text">Anno: {{ esito.year_released }}</p>
-                        <p class="card-text stylish-text">Cornice nr: {{ quadro }}</p>
-                        <p class="card-text stylish-text">Posizione: {{ posizione }}</p>
-                        <p class="card-text stylish-text">Valore Medio: {{ valore_medio }} €</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-{% endif %}
 
 
 
